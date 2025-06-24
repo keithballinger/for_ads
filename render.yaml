@@ -5,10 +5,9 @@ services:
   # 1. A Go Web Service for your backend API
   - type: web
     name: go-backend
-    # Use the shell runtime for full control over the build process
-    runtime: shell
-    # Explicitly define the build and start commands
-    buildCommand: "cd backend && go build -o ../app ."
+    runtime: go
+    # The build command is now simpler since go.mod is in the root
+    buildCommand: "go build -o app ."
     startCommand: "./app"
     plan: free
     healthCheckPath: /api/sonnet
