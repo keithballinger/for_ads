@@ -14,7 +14,7 @@ type Sonnet struct {
 
 func main() {
 	// Serve the frontend
-	fs := http.FileServer(http.Dir("./frontend/dist"))
+	fs := http.FileServer(http.Dir("./dist"))
 	http.Handle("/", fs)
 
 	// API endpoint

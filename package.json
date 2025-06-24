@@ -1,0 +1,11 @@
+{
+  "name": "ad-web-app-root",
+  "version": "1.0.0",
+  "description": "Root package.json for Heroku build",
+  "main": "index.js",
+  "scripts": {
+    "heroku-prebuild": "mv frontend/* . && mv frontend/.* . || true"
+  },
+  "author": "",
+  "license": "ISC"
+}
