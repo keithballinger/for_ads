@@ -23,7 +23,7 @@ services:
       # Proxy API requests to the backend service
       - type: rewrite
         source: /api/*
-        destination: http://go-backend/api/*
+        destination: http://go-backend
       # Rewrite all other paths to index.html for SPA routing
       - type: rewrite
         source: /*
