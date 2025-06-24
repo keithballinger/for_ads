@@ -8,7 +8,7 @@
   }
 
   onMount(async () => {
-    const response = await fetch('http://localhost:8080/api/sonnet')
+    const response = await fetch('/api/sonnet')
     sonnet = await response.json()
   })
 </script>
