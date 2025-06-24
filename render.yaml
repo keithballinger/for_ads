@@ -5,8 +5,9 @@ services:
   # 1. A Go Web Service for your backend API
   - type: web
     name: go-backend
-    runtime: go
-    # Explicitly define the build and start commands to handle the monorepo structure
+    # Use the shell runtime for full control over the build process
+    runtime: shell
+    # Explicitly define the build and start commands
     buildCommand: "cd backend && go build -o ../app ."
     startCommand: "./app"
     plan: free
@@ -15,16 +16,12 @@ services:
   # 2. A Static Site for your Svelte frontend
   - type: static
     name: svelte-frontend
-    # Look for the Svelte code in the 'frontend' directory
     rootDir: frontend
-    # The command to build your Svelte app
     buildCommand: npm install && npm run build
-    # The directory containing the built static files
     publishDir: dist
     plan: free
-    # Routing rules to handle a Single Page Application (SPA) and the API
     routes:
-      # Proxy all requests starting with /api to the backend service
+      # Proxy API requests to the backend service
       - type: rewrite
         source: /api/*
         destination: http://go-backend/api/*
