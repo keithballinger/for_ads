@@ -9,7 +9,9 @@
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
-  "vite": "^5.2.0"
+  "dependencies": {
+    "@mantine/core": "^8.1.1",
+    "@mantine/hooks": "^8.1.1"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
@@ -19,9 +21,5 @@
     "tslib": "^2.6.2",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
-  },
-  "dependencies": {
-    "@mantine/core": "^8.1.1",
-    "@mantine/hooks": "^8.1.1"
   }
 }
