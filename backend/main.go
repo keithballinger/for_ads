@@ -13,18 +13,11 @@ type Sonnet struct {
 }
 
 func main() {
-	// Serve the frontend
-	fs := http.FileServer(http.Dir("./dist"))
-	http.Handle("/", fs)
-
-	// API endpoint
 	http.HandleFunc("/api/sonnet", sonnetHandler)
 
-	// Determine port for Heroku
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
-		log.Printf("Defaulting to port %s", port)
 	}
 
 	log.Printf("Listening on port %s", port)
@@ -32,6 +25,10 @@ func main() {
 }
 
 func sonnetHandler(w http.ResponseWriter, r *http.Request) {
+	// Allow cross-origin requests from the frontend
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Content-Type", "application/json")
+
 	sonnet := Sonnet{
 		Title: "Sonnet 116",
 		Lines: []string{
@@ -51,7 +48,5 @@ func sonnetHandler(w http.ResponseWriter, r *http.Request) {
 			"I never writ, nor no man ever loved.",
 		},
 	}
-
-	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(sonnet)
 }
