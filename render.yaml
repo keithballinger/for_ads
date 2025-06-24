@@ -6,13 +6,10 @@ services:
   - type: web
     name: go-backend
     runtime: go
-    # Look for the Go code in the 'backend' directory
-    rootDir: backend
-    # The command to build your Go application
-    buildGo: .
-    # Render provides a free plan for web services
+    # Explicitly define the build and start commands to handle the monorepo structure
+    buildCommand: "cd backend && go build -o ../app ."
+    startCommand: "./app"
     plan: free
-    # Health check to ensure the service is running
     healthCheckPath: /api/sonnet
 
   # 2. A Static Site for your Svelte frontend
@@ -24,14 +21,13 @@ services:
     buildCommand: npm install && npm run build
     # The directory containing the built static files
     publishDir: dist
-    # Render provides a free, fast CDN for static sites
     plan: free
     # Routing rules to handle a Single Page Application (SPA) and the API
     routes:
       # Proxy all requests starting with /api to the backend service
       - type: rewrite
         source: /api/*
-        destination: https://go-backend.onrender.com/api/*
+        destination: http://go-backend/api/*
       # Rewrite all other paths to index.html for SPA routing
       - type: rewrite
         source: /*
