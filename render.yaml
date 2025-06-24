@@ -9,7 +9,7 @@ services:
     # Look for the Go code in the 'backend' directory
     rootDir: backend
     # The command to build your Go application
-    main: .
+    buildGo: .
     # Render provides a free plan for web services
     plan: free
     # Health check to ensure the service is running
