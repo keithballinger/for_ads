@@ -1,17 +1,20 @@
 <script lang="ts">
+  import { MantineProvider } from '@mantine/core';
   import Puzzle from './Puzzle.svelte'
   import Sonnet from './Sonnet.svelte'
 
   let puzzleSolved = false
 </script>
 
-<main>
-  {#if !puzzleSolved}
-    <Puzzle on:solved={() => puzzleSolved = true} />
-  {:else}
-    <Sonnet />
-  {/if}
-</main>
+<MantineProvider>
+  <main>
+    {#if !puzzleSolved}
+      <Puzzle on:solved={() => puzzleSolved = true} />
+    {:else}
+      <Sonnet />
+    {/if}
+  </main>
+</MantineProvider>
 
 <style>
   main {
