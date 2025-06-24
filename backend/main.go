@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 )
 
 type Sonnet struct {
@@ -12,9 +13,22 @@ type Sonnet struct {
 }
 
 func main() {
+	// Serve the frontend
+	fs := http.FileServer(http.Dir("./frontend/dist"))
+	http.Handle("/", fs)
+
+	// API endpoint
 	http.HandleFunc("/api/sonnet", sonnetHandler)
-	log.Println("Server starting on port 8080...")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+
+	// Determine port for Heroku
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+		log.Printf("Defaulting to port %s", port)
+	}
+
+	log.Printf("Listening on port %s", port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
 func sonnetHandler(w http.ResponseWriter, r *http.Request) {
@@ -39,6 +53,5 @@ func sonnetHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin", "*") // For development purposes
 	json.NewEncoder(w).Encode(sonnet)
 }
