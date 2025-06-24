@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
+  import { Paper, Title, Text } from '@mantine/core'
 
   let sonnet = {
     title: '',
@@ -12,9 +13,9 @@
   })
 </script>
 
-<div>
-  <h1>{sonnet.title}</h1>
+<Paper withBorder shadow="md" p={30} mt={30} radius="md">
+  <Title order={2} ta="center" mt="md" mb={50}>{sonnet.title}</Title>
   {#each sonnet.lines as line}
-    <p>{line}</p>
+    <Text ta="center">{line}</Text>
   {/each}
-</div>
+</Paper>
